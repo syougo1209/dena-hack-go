@@ -31,3 +31,16 @@ CREATE TABLE `event_group_participation`
   `group_id`       BIGINT UNSIGNED NOT NULL COMMENT 'イベントの識別子',
   `user_id`       BIGINT UNSIGNED NOT NULL COMMENT 'ユーザーの識別子'
 ) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='イベントグループ';
+
+CREATE TABLE `question`
+(
+    `id`       BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `content`     varchar(255) NOT NULL COMMENT '質問内容',
+    PRIMARY KEY (`id`)
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
+CREATE TABLE `answer`
+(
+    `question_id`       BIGINT UNSIGNED NOT NULL COMMENT 'イベントの識別子',
+    `content`     varchar(255) NOT NULL COMMENT '回答内容',
+    `number`     varchar(255) NOT NULL COMMENT '回答番号'
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
