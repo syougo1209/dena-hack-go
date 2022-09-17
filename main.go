@@ -41,5 +41,8 @@ func main() {
 	})
 	uHandler := handler.UserHandler{Xdb: xdb}
 	e.GET("/users/:id", uHandler.ServeHTTP)
+
+	emHandler := handler.EventMatchHandler{Xdb: xdb}
+	e.GET("/events/:event_id/matching", emHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":80"))
 }

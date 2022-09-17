@@ -19,3 +19,15 @@ CREATE TABLE `event`
     `name`     varchar(255) NOT NULL COMMENT 'イベント名',
     PRIMARY KEY (`id`)
 ) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
+
+CREATE TABLE `event_group`
+(
+    `id`       BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `event_id`       BIGINT UNSIGNED NOT NULL COMMENT 'イベントの識別子',
+    PRIMARY KEY (`id`)
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='イベントグループ';
+CREATE TABLE `event_group_participation`
+(
+  `group_id`       BIGINT UNSIGNED NOT NULL COMMENT 'イベントの識別子',
+  `user_id`       BIGINT UNSIGNED NOT NULL COMMENT 'ユーザーの識別子'
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='イベントグループ';
