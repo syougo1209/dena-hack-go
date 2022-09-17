@@ -6,6 +6,7 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/syougo1209/dena-hack-go/config"
 	"github.com/syougo1209/dena-hack-go/handler"
 
 	"github.com/jmoiron/sqlx"
@@ -13,7 +14,17 @@ import (
 )
 
 func main() {
-	mysqlDB, err := sql.Open("mysql", fmt.Sprintf("user:user@tcp(mysql:3306)/dena-hack?parseTime=true&loc=Local"))
+	cfg, err := config.New()
+	if err != nil {
+		log.Printf("failed to new config: %v", err)
+	}
+
+	mysqlDB, err := sql.Open("mysql", fmt.Sprintf(
+		"%s:%s@tcp(%s)/%s?parseTime=true&loc=Local",
+		cfg.MySQLUser, cfg.MYSQLPassword,
+		cfg.MYSQLAddr, cfg.MYSQLDbName,
+	))
+
 	if err != nil {
 		log.Printf("%v", err)
 	}
@@ -26,11 +37,4 @@ func main() {
 	uHandler := handler.UserHandler{Xdb: xdb}
 	e.GET("/users/:id", uHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":8080"))
-}
-
-type User struct {
-	ID       int    `json:"id" db:"id"`
-	Name     string `json:"name" db:"name"`
-	Email    string `json:"email" db:"email"`
-	Password string `json:"password" db:"password"`
 }
