@@ -57,5 +57,7 @@ func main() {
 	aHandler := handler.AnswerHandler{Xdb: xdb}
 	e.POST("/events/:event_id/questions", aHandler.ServeHTTP)
 
+	gHandler := handler.GroupingHandler{Xdb: xdb}
+	e.GET("/events/:event_id/grouping", gHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":80"))
 }
