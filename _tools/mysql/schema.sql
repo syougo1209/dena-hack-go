@@ -44,3 +44,10 @@ CREATE TABLE `answer`
     `content`     varchar(255) NOT NULL COMMENT '回答内容',
     `number`     varchar(255) NOT NULL COMMENT '回答番号'
 ) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
+
+CREATE TABLE `user_answer`
+(
+    `question_id`       BIGINT UNSIGNED NOT NULL COMMENT 'questionの識別子',
+    `user_id`       BIGINT UNSIGNED NOT NULL COMMENT 'ユーザーの識別子',
+    `number`     varchar(255) NOT NULL COMMENT '回答番号'
+) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';

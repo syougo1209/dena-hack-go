@@ -47,5 +47,9 @@ func main() {
 
 	qHandler := handler.QuestionsHandler{Xdb: xdb}
 	e.GET("/events/:event_id/questions", qHandler.ServeHTTP)
+
+	aHandler := handler.AnswerHandler{Xdb: xdb}
+	e.POST("/events/:event_id/questions", aHandler.ServeHTTP)
+
 	e.Logger.Fatal(e.Start(":80"))
 }
