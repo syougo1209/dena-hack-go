@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/syougo1209/dena-hack-go/handler"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
@@ -23,13 +23,8 @@ func main() {
 	xdb := sqlx.NewDb(mysqlDB, "mysql")
 
 	e := echo.New()
-	e.GET("/users", func(c echo.Context) error {
-		ctx := c.Request().Context()
-		query := `INSERT user (name, email, password) VALUES (?,?,?)`
-		user := &User{Name: "name", Email: "email", Password: "password"}
-		xdb.ExecContext(ctx, query, user.Name, user.Email, user.Password)
-		return c.String(http.StatusOK, "Hello, World!!")
-	})
+	uHandler := handler.UserHandler{Xdb: xdb}
+	e.GET("/users/:id", uHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":8080"))
 }
 
