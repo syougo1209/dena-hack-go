@@ -27,5 +27,11 @@ func (uh *UserHandler) ServeHTTP(c echo.Context) error {
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 	}
+	repository2 := &db.EventRepository{}
+	events, err := repository2.SelectByUserID(ctx, uh.Xdb, model.UserID(req.ID))
+	if err != nil {
+		c.String(http.StatusInternalServerError, err.Error())
+	}
+	user.ParticipatedEvents = events
 	return c.JSON(http.StatusOK, user)
 }
