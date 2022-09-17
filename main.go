@@ -23,7 +23,7 @@ func main() {
 	xdb := sqlx.NewDb(mysqlDB, "mysql")
 
 	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
+	e.GET("/users", func(c echo.Context) error {
 		ctx := c.Request().Context()
 		query := `INSERT user (name, email, password) VALUES (?,?,?)`
 		user := &User{Name: "name", Email: "email", Password: "password"}
