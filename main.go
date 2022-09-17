@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/syougo1209/dena-hack-go/config"
@@ -34,7 +35,10 @@ func main() {
 	xdb := sqlx.NewDb(mysqlDB, "mysql")
 
 	e := echo.New()
+	e.GET("/", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
+	})
 	uHandler := handler.UserHandler{Xdb: xdb}
 	e.GET("/users/:id", uHandler.ServeHTTP)
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":80"))
 }
