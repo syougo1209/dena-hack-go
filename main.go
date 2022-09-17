@@ -11,8 +11,8 @@ import (
 	"github.com/syougo1209/dena-hack-go/handler"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/labstack/echo/middleware"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
