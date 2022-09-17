@@ -11,6 +11,7 @@ import (
 	"github.com/syougo1209/dena-hack-go/handler"
 
 	"github.com/jmoiron/sqlx"
+	"github.com/labstack/echo/middleware"
 	"github.com/labstack/echo/v4"
 )
 
@@ -36,6 +37,11 @@ func main() {
 
 	log.Printf("hello!!world!!")
 	e := echo.New()
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	}))
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
