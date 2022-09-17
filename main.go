@@ -34,6 +34,7 @@ func main() {
 
 	xdb := sqlx.NewDb(mysqlDB, "mysql")
 
+	log.Printf("hello!!world!!")
 	e := echo.New()
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
