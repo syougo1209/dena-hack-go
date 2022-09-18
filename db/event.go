@@ -30,9 +30,9 @@ func (er *EventRepository) SelectByUserID(ctx context.Context, Db *sqlx.DB, id m
 func (er *EventRepository) GetByID(ctx context.Context, Db *sqlx.DB, id model.EventID) (*model.Event, error) {
 	event := &model.Event{}
 
-	query := `SELECT e.id, e.name
+	query := `SELECT e.id, e.name, e.admin_user_id
 	    FROM event as e
-			WHERE id = ?
+			WHERE e.id = ?
 	`
 
 	if err := Db.GetContext(ctx, event, query, id); err != nil {

@@ -16,6 +16,7 @@ CREATE TABLE `event_participation`
 CREATE TABLE `event`
 (
     `id`       BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `admin_user_id`       BIGINT UNSIGNED NOT NULL COMMENT '管理者ユーザーの識別子',
     `name`     varchar(255) NOT NULL COMMENT 'イベント名',
     PRIMARY KEY (`id`)
 ) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';

@@ -62,5 +62,8 @@ func main() {
 
 	pHandler := handler.PrepareDataHandler{Xdb: xdb}
 	e.POST("/prepare_data", pHandler.ServeHTTP)
+
+	eHandler := handler.EventHandler{Xdb: xdb}
+	e.GET("/events/:event_id", eHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":80"))
 }
