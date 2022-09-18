@@ -10,5 +10,5 @@ type UsersChoice struct {
 }
 
 type UsersGroup struct {
-	Group [][]string `json:"group"`
+	Group [][]int `json:"group"`
 }
