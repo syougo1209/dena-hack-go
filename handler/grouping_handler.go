@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/syougo1209/dena-hack-go/db"
 	"github.com/syougo1209/dena-hack-go/model"
+	"github.com/syougo1209/dena-hack-go/service"
 )
 
 type GroupingHandler struct {
@@ -30,5 +31,20 @@ func (gh *GroupingHandler) ServeHTTP(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, choices)
+	// リクエスト用の構造体を用意する
+	// [TODO]: グループ数を受け取れるようにする
+	groupingRequest := model.GroupingRequest{
+		GroupNum:     3,
+		UsersChoices: choices,
+	}
+
+	// Pythonとのやりとりした結果を構造体で受け取る
+	usersGroup, err := service.GroupingService(&groupingRequest)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	// 結果をデータベースに保存する
+
+	return c.JSON(http.StatusOK, usersGroup)
 }
