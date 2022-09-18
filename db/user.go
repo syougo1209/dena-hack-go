@@ -28,15 +28,17 @@ func (ur *UserRepository) FindById(ctx context.Context, Db *sqlx.DB, id model.Us
 
 	return user, nil
 }
-func (ur *UserRepository) SelectGroupUsersById(ctx context.Context, Db *sqlx.DB, id model.UserID) ([]*model.User, error) {
+func (ur *UserRepository) SelectGroupUsersById(ctx context.Context, Db *sqlx.DB, id model.UserID, eid model.EventID) ([]*model.User, error) {
 	dto := &DTO{}
 	query := `SELECT egp.group_id, egp.user_id
 	    FROM event_group_participation as egp
+			JOIN event_group as eg on eg.id = egp.group_id
 			WHERE egp.user_id = ?
+			AND eg.event_id = ?
 	`
 
-	if err := Db.GetContext(ctx, dto, query, id); err != nil {
-		return nil, fmt.Errorf("GetContext user by id=%d: %w", id, err)
+	if err := Db.GetContext(ctx, dto, query, id, eid); err != nil {
+		return nil, fmt.Errorf("GeContext user by id=%d: %w", id, err)
 	}
 
 	query2 := `SELECT u.id, u.name ,u.twitter_id

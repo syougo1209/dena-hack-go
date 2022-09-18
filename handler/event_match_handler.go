@@ -24,7 +24,7 @@ func (uh *EventMatchHandler) ServeHTTP(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, "params are inappropriate")
 	}
 	repository := db.UserRepository{}
-	users, err := repository.SelectGroupUsersById(ctx, uh.Xdb, model.UserID(req.UserID))
+	users, err := repository.SelectGroupUsersById(ctx, uh.Xdb, model.UserID(req.UserID), model.EventID(req.ID))
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 	}

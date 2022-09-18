@@ -6,13 +6,12 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	"github.com/syougo1209/dena-hack-go/model"
-	"github.com/syougo1209/dena-hack-go/service"
 )
 
 type UserAnswerRepository struct {
 }
 
-func (uar *UserAnswerRepository) MakeGroupingResponse(ctx context.Context, Db *sqlx.DB, id model.EventID) ([]service.UsersChoice, error) {
+func (uar *UserAnswerRepository) MakeGroupingResponse(ctx context.Context, Db *sqlx.DB, id model.EventID) ([]model.UsersChoice, error) {
 	query := `SELECT ep.user_id
 		FROM event_participation as ep
 		WHERE ep.event_id = ?
@@ -22,7 +21,7 @@ func (uar *UserAnswerRepository) MakeGroupingResponse(ctx context.Context, Db *s
 		return nil, fmt.Errorf("GetContext user by id=%d: %w", id, err)
 	}
 
-	req := make([]service.UsersChoice, len(*users))
+	req := make([]model.UsersChoice, len(*users))
 
 	query2 := `SELECT *
 		FROM user_answer as ea
