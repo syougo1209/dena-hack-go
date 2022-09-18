@@ -34,11 +34,33 @@ func (uh *EventMatchHandler) ServeHTTP(c echo.Context) error {
 		c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	eg := model.EventGroup{
-		EventID:   event.ID,
+	userreses := make([]userres, len(users))
+
+	for i, v := range users {
+		userreses[i] = userres{
+			ID:        int(v.ID),
+			Name:      v.Name,
+			TwitterID: v.TwitterID,
+		}
+	}
+
+	eg := response{
+		EventID:   int(event.ID),
 		EventName: event.Name,
-		Users:     users,
+		Users:     userreses,
 	}
 
 	return c.JSON(http.StatusOK, eg)
+}
+
+type response struct {
+	EventID   int       `json:"event_id"`
+	EventName string    `json:"event_name"`
+	Users     []userres `json:"users"`
+}
+
+type userres struct {
+	ID        int    `json:"id"`
+	Name      string `json:"name"`
+	TwitterID string `json:"twitter_id"`
 }
