@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
@@ -40,11 +41,13 @@ func (gh *GroupingHandler) ServeHTTP(c echo.Context) error {
 
 	// Pythonとのやりとりした結果を構造体で受け取る
 	usersGroup, err := service.GroupingService(&groupingRequest)
+	log.Printf("%v", usersGroup)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
 	// 結果をデータベースに保存する
-
+	repo2 := db.GroupRepository{}
+	repo2.StoreGroup(ctx, gh.Xdb, model.EventID(req.EventID), *usersGroup)
 	return c.JSON(http.StatusOK, usersGroup)
 }
