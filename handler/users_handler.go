@@ -33,5 +33,18 @@ func (uh *UserHandler) ServeHTTP(c echo.Context) error {
 		c.String(http.StatusInternalServerError, err.Error())
 	}
 	user.ParticipatedEvents = events
-	return c.JSON(http.StatusOK, user)
+	user2 := userRes{
+		ID:                 int(user.ID),
+		Name:               user.Name,
+		TwitterID:          user.TwitterID,
+		ParticipatedEvents: events,
+	}
+	return c.JSON(http.StatusOK, user2)
+}
+
+type userRes struct {
+	ID                 int            `json:"id"`
+	Name               string         `json:"name"`
+	TwitterID          string         `json:"twitter_id"`
+	ParticipatedEvents []*model.Event `json:"participated_events"`
 }
