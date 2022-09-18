@@ -65,5 +65,9 @@ func main() {
 
 	eHandler := handler.EventHandler{Xdb: xdb}
 	e.GET("/events/:event_id", eHandler.ServeHTTP)
+
+	epHandler := handler.EventParticipationHandler{Xdb: xdb}
+	e.POST("/events/:event_id/participations", epHandler.ServeHTTP)
+
 	e.Logger.Fatal(e.Start(":80"))
 }
