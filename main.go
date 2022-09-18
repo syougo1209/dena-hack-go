@@ -59,5 +59,8 @@ func main() {
 
 	gHandler := handler.GroupingHandler{Xdb: xdb}
 	e.GET("/events/:event_id/grouping", gHandler.ServeHTTP)
+
+	pHandler := handler.PrepareDataHandler{Xdb: xdb}
+	e.POST("/prepare_data", pHandler.ServeHTTP)
 	e.Logger.Fatal(e.Start(":80"))
 }

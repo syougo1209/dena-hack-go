@@ -38,6 +38,7 @@ CREATE TABLE `question`
     `content`     varchar(255) NOT NULL COMMENT '質問内容',
     PRIMARY KEY (`id`)
 ) Engine=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザー';
+
 CREATE TABLE `answer`
 (
     `question_id`       BIGINT UNSIGNED NOT NULL COMMENT 'イベントの識別子',

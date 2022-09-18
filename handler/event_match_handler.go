@@ -33,6 +33,7 @@ func (uh *EventMatchHandler) ServeHTTP(c echo.Context) error {
 	if err != nil {
 		c.String(http.StatusInternalServerError, err.Error())
 	}
+
 	eg := model.EventGroup{
 		EventID:   event.ID,
 		EventName: event.Name,
