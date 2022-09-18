@@ -17,7 +17,7 @@ func GroupingService(groupingRequest *model.GroupingRequest) (*model.UsersGroup,
 	// 送信するJSONの用意
 	jsonString, err := json.Marshal(groupingRequest)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	// HTTPリクエストの作成
@@ -31,14 +31,14 @@ func GroupingService(groupingRequest *model.GroupingRequest) (*model.UsersGroup,
 	client := new(http.Client)
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	// レスポンスを構造体に入れる
 	usersGroup := new(model.UsersGroup)
 	if err := json.NewDecoder(resp.Body).Decode(&usersGroup); err != nil {
-		return nil, nil
+		return nil, err
 	}
 	return usersGroup, nil
 }
